@@ -1,10 +1,12 @@
 import React from 'react';
+import Header from './components/Header/Header';
+import Sort from './components/Sort/Sort';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      <Header />
+      <Sort />
     </div>
   );
 }
