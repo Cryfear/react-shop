@@ -5,9 +5,9 @@ const Other = () => {
         <div className="other">
             <div>Сортировка по: <span className="other__sort">популярности</span></div>
             <ul className="other__types">
-                <li>по популярности</li>
-                <li>по цене</li>
-                <li>по алфавиту</li>
+                <li>популярности</li>
+                <li>цене</li>
+                <li>алфавиту</li>
             </ul>
         </div>
     )

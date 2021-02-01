@@ -1,14 +1,16 @@
 import React from 'react';
-import HeaderBasket from '../Header/HeaderBasket/HeaderBasket';
-import ContentBasket from './ContentBasket/ContentBasket';
-import PayBlockBasket from './PayBlockBasket/PayBlockBasket';
+import Header from './Header/Header';
+
+import './Basket.scss';
+import EmptyBasket from './EmptyBasket/EmptyBasket';
+import GoodsBasket from './GoodsBasket/GoodsBasket';
 
 const Basket = () => {
+  const empty = false;
   return (
-    <section className="basket">
-      <HeaderBasket />
-      <ContentBasket />
-      <PayBlockBasket />
+    <section className="basket-page">
+      <Header />
+      {empty ? <EmptyBasket /> : <GoodsBasket />}
     </section>
   )
 }

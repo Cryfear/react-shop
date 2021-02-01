@@ -1,0 +1,19 @@
+.basket-page__header {
+  display: flex;
+  margin-bottom: 60px;
+}
+
+.basket-page__header-descr {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 15px;
+
+  & h1 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  & p {
+    color: grey;
+  }
+}

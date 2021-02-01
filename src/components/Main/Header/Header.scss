@@ -1,0 +1,58 @@
+.App-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.logo__description {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 15px;
+
+  & h1 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  & p {
+    color: grey;
+  }
+}
+
+.basket {
+  display: flex;
+  justify-content: space-between;
+  background-color: #FE5F1E;
+  min-width: 110px;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+
+  & > div:first-child, & > div:nth-child(2) {
+    width: 50%;
+    position: relative;
+  }
+
+  & > div:first-child::after {
+    content: '₽';
+    display: inline-block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+  }
+  & > div:nth-child(2) {
+    border-left: 1px solid white;
+    
+    &::before { 
+    content: '';
+    display: inline-block;
+    background: url('../../../img/Header/basket.svg');
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: top;
+    }
+  }
+}

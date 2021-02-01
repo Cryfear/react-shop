@@ -1,0 +1,77 @@
+.basket-page__empty {
+  & h2 {
+    margin-top: 100px;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  & p {
+    text-align: center;
+    color: grey;
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+
+  &-img {
+    text-align: center;
+    margin: 40px 0;
+
+    & img {
+      width: 250px;
+      height: 250px;
+    }
+  }
+
+  & button {
+    margin: 40px auto;
+    display: block;
+    background-color: #282828;
+    color: white;
+    border-radius: 30px;
+    padding: 15px 50px;
+    font-weight: bold;
+    border: none;
+  }
+}
+
+@media (max-width: 460px) {
+  .basket-page__empty {
+    & h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+
+    & p {
+      font-size: 1rem;
+    }
+
+    &-img {
+      & img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+
+  html,
+  body,
+  #root {
+    height: max-content !important;
+  }
+
+  .basket-page__header {
+    & img {
+      height: 35px;
+    }
+
+    &-descr h1 {
+      font-size: 17px;
+    }
+
+    &-descr div {
+      margin-top: 5px;
+    }
+  }
+}

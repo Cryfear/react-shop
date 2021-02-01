@@ -1,0 +1,102 @@
+.basket-page__item {
+  display: flex;
+  margin-bottom: 30px;
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &-title {
+    margin-left: 20px;
+
+    & h4 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    & div {
+      color: grey;
+    }
+  }
+
+  &-counter {
+    & span {
+      margin: 0 15px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    & button {
+      border: 2px solid #fe5f1e;
+      border-radius: 50%;
+      background-color: white;
+      width: 35px;
+      height: 35px;
+      color: #fe5f1e;
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      font-weight: bold;
+    }
+  }
+
+  &-price {
+    font-weight: bold;
+    font-size: 1.5rem;
+
+    &::after {
+      content: "₽";
+      width: 15px;
+      height: 15px;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+}
+
+.basket-page__item-deleter {
+  position: relative;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    left: 15px;
+    content: " ";
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+}
+
+@media (max-width: 678px) {
+  .basket-page__item {
+    & img {
+      width: 50px;
+      height: 50px;
+    }
+
+    &-counter {
+      & button {
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }
+}

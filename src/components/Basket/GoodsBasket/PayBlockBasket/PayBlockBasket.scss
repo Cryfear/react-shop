@@ -1,0 +1,68 @@
+.basket__payBlock {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.payBlock {
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    font-size: 1.4rem;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__all,
+  &__price {
+    font-weight: bold;
+  }
+
+  &__price {
+    color: #fe5f1e;
+
+    &::after {
+      content: "₽";
+      width: 15px;
+      height: 15px;
+      display: inline-block;
+      margin-left: 5px;
+    }
+  }
+
+  &__back {
+    width: 200px;
+    height: 50px;
+    border: 1px solid grey;
+    color: grey;
+    border-radius: 25px;
+    background-color: white;
+  }
+
+  &__buy {
+    width: 200px;
+    height: 50px;
+    border: 1px solid #fe5f1e;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    background-color: #fe5f1e;
+  }
+}
+
+@media (max-width: 650px) {
+  .payBlock {
+    &__title {
+      font-size: 1rem;
+    }
+
+    &__buttons {
+      & button {
+        width: 135px;
+      }
+    }
+  }
+}
