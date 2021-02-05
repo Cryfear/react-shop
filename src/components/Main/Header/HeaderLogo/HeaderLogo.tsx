@@ -7,7 +7,7 @@ const HeaderLogo = () => {
       <img src={logo} alt="logo" />
       <div className="logo__description">
         <h1>React Pizza</h1>
-        <p>самая вкусная пицца во вселенной</p>
+        <p>The most delicious pizza in the world</p>
       </div>
     </div>
   )

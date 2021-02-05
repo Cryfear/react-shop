@@ -1,16 +1,25 @@
-import React from 'react';
+import React from "react";
 
-const Other = () => {
-    return (
-        <div className="other">
-            <div>Сортировка по: <span className="other__sort">популярности</span></div>
-            <ul className="other__types">
-                <li>популярности</li>
-                <li>цене</li>
-                <li>алфавиту</li>
-            </ul>
-        </div>
-    )
+interface otherCompopentTypes {
+  isSortOpen: boolean;
 }
+
+const Other = ({ isSortOpen }: otherCompopentTypes) => {
+  return (
+    <div className="other">
+      <div>
+        Sort by: <span className="other__sort">popularity</span>
+      </div>
+
+      {isSortOpen ? (
+        <ul className="other__types">
+          <li>popularity</li>
+          <li>price</li>
+          <li>name</li>
+        </ul>
+      ) : null}
+    </div>
+  );
+};
 
 export default Other;

@@ -3,12 +3,12 @@ import React from 'react';
 const Structure = () => {
     return (
         <ul className="structure__list">
-            <li className="structure__item">Все</li>
-            <li className="structure__item">Мясные</li>
-            <li className="structure__item">Вегетарианские</li>
-            <li className="structure__item">Гриль</li>
-            <li className="structure__item">Острые</li>
-            <li className="structure__item">Закрытые</li>
+            <li className="structure__item">All</li>
+            <li className="structure__item">Meat</li>
+            <li className="structure__item">Vegan</li>
+            <li className="structure__item">Grilled</li>
+            <li className="structure__item">Spicy</li>
+            <li className="structure__item">Closed</li>
         </ul>
     )
 }

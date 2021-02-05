@@ -1,12 +1,23 @@
-import React from 'react';
+import React from "react";
+import { connect } from "react-redux";
 
-const HeaderBasket = () => {
-  return (
-      <div className="basket">
-          <div className="basket__price">520</div>
-          <div className="basket__goods">3</div>
-      </div>
-  )
+interface HeaderBasketTypes {
+  orderedSum: number;
+  goodsSum: number;
 }
 
-export default HeaderBasket;
+const HeaderBasket = ({ orderedSum, goodsSum }: HeaderBasketTypes) => {
+  return (
+    <div className="basket">
+      <div className="basket__price">{goodsSum}</div>
+      <div className="basket__goods">{orderedSum}</div>
+    </div>
+  );
+};
+
+const mapStateToProps = (state: Storage) => ({
+  orderedSum: state.basket.orderedSum,
+  goodsSum: state.basket.goodsSum,
+});
+
+export default connect(mapStateToProps, {})(HeaderBasket);

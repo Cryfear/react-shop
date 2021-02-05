@@ -1,6 +1,7 @@
 import React from 'react';
 import Basket from './components/Basket/Basket';
 import Main from './components/Main/Main';
+
 import "./index.scss";
 
 function App() {
