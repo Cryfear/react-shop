@@ -2,9 +2,13 @@ import chesse_burger from '../img/Goods/cheese-burger.png';
 import asianish from '../img/Goods/asianish.png';
 import chesse_chicken from '../img/Goods/cheese-chicken.png';
 import chesse from '../img/Goods/cheese.png';
+import { Dispatch } from 'react';
+
+const SORT_ACTION = "SORT_ACTION";
 
 interface HomeStateTypes {
   isSortOpen: boolean;
+  sortedBy: string;
   pizzas: Array<
     {
       name: string;
@@ -16,8 +20,14 @@ interface HomeStateTypes {
   >;
 }
 
+interface HomeActionTypes {
+  type: string;
+  sortedBy?: string;
+}
+
 let initialState: HomeStateTypes = {
   isSortOpen: false,
+  sortedBy: '',
   pizzas: [
     {
       name: 'Cheese Burger-Pizza',
@@ -57,13 +67,25 @@ let initialState: HomeStateTypes = {
   ]
 };
 
-const HomeAction = (state = { ...initialState }, action: any) => {
+const HomeAction = (state: HomeStateTypes = { ...initialState }, action: HomeActionTypes) => {
   switch (action.type) {
+    case SORT_ACTION: {
+      return { ...state, sortedBy: action.sortedBy }
+    }
     default:
       return {
         ...state
       };
   }
 };
+
+export const sortAction = (sortedBy: string) => {
+  return async (dispatch: Dispatch<any>) => {
+    dispatch({
+      type: SORT_ACTION,
+      sortedBy: sortedBy
+    });
+  };
+}
 
 export default HomeAction;

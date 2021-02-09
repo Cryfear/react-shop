@@ -1,18 +1,20 @@
-import React from 'react';
-import Basket from './components/Basket/Basket';
-import Main from './components/Main/Main';
+import React from "react";
+import { connect } from "react-redux";
+import Basket from "./components/Basket/Basket";
+import Main from "./components/Main/Main";
 
 import "./index.scss";
 
-function App() {
-  const basket = false;
+function App({ isOpenBasket }: { isOpenBasket: boolean }) {
   return (
     <div className="App">
-      <div className="app__wrapper">
-        {basket ? <Basket /> : <Main />}
-      </div>
+      <div className="app__wrapper">{isOpenBasket ? <Basket /> : <Main />}</div>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state: Storage) => ({
+  isOpenBasket: state.basket.isOpenBasket,
+});
+
+export default connect(mapStateToProps, {})(App);

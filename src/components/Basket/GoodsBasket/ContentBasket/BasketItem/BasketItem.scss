@@ -11,6 +11,8 @@
 
   &-title {
     margin-left: 20px;
+    width: 20%;
+    margin-right: 100px;
 
     & h4 {
       font-size: 1.2rem;
@@ -47,6 +49,7 @@
   &-price {
     font-weight: bold;
     font-size: 1.5rem;
+    margin-right: 70px;
 
     &::after {
       content: "₽";
@@ -83,6 +86,11 @@
   &:after {
     transform: rotate(-45deg);
   }
+}
+
+.basket-page__item-counter {
+  width: 30%;
+  margin-right: auto;
 }
 
 @media (max-width: 678px) {

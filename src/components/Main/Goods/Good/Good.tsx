@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 
-import Pizza from "../../../../img/Goods/cheese.png";
-
 interface GoodTypes {
   name: string;
+  src: string;
   price: number;
   addPizzaAction: Function;
 }
 
-const Good = ({ name, price, addPizzaAction }: GoodTypes) => {
+const Good = ({ name, price, addPizzaAction, src }: GoodTypes) => {
   const [dough, setDough]: [string, Function] = useState<string>("");
   const [length, setLength]: [number, Function] = useState<number>(0);
   const [counts, setCount]: [number, Function] = useState<number>(1);
 
   return (
     <div className="goods__item">
-      <img src={Pizza} alt="" />
+      <img src={src} alt="" />
       <h4>{name}</h4>
       <div className="item__settings">
         <div className="item__type">
@@ -39,6 +38,7 @@ const Good = ({ name, price, addPizzaAction }: GoodTypes) => {
               dough,
               length,
               counts,
+              src,
             });
           }}
           className="item__buy"

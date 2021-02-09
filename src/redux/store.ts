@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   basket: BasketAction
 });
 
-const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware));
+const store: any = createStore(rootReducer, applyMiddleware(ThunkMiddleware));
 
 (window as any).store = store;
 

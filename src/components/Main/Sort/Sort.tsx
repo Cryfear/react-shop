@@ -5,14 +5,17 @@ import Structure from "./Structure/Structure";
 import "./Sort.scss";
 import { connect } from "react-redux";
 
+import { sortAction } from "../../../redux/home-reducer";
+
 interface sortComponentTypes {
   isSortOpen: boolean;
+  sortAction: Function;
 }
 
-const Sort = ({ isSortOpen }: sortComponentTypes) => {
+const Sort = ({ isSortOpen, sortAction }: sortComponentTypes) => {
   return (
     <div className="sort">
-      <Structure />
+      <Structure sortAction={sortAction} />
       <Other isSortOpen={isSortOpen} />
     </div>
   );
@@ -22,4 +25,4 @@ const mapStateToProps = (state: Storage) => ({
   isSortOpen: state.home.isSortOpen,
 });
 
-export default connect(mapStateToProps, {})(Sort);
+export default connect(mapStateToProps, { sortAction })(Sort);

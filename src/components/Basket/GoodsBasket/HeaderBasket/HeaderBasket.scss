@@ -25,6 +25,7 @@
     color: grey;
     position: relative;
     align-self: flex-end;
+    cursor: pointer;
 
     &::before {
       content: "";
