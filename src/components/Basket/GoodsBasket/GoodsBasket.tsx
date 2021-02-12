@@ -9,14 +9,24 @@ interface GoodsBasketTypes {
   orderedPizzaz: Array<PizzaTypes>;
   basketSwitcher: Function;
   clearBasket: Function;
+  deletePizza: Function;
+  goodsSum: number;
+  orderedSum: number;
 }
 
-const GoodsBasket = ({ orderedPizzaz, basketSwitcher, clearBasket }: GoodsBasketTypes) => {
+const GoodsBasket = ({
+  orderedPizzaz,
+  basketSwitcher,
+  clearBasket,
+  deletePizza,
+  goodsSum,
+  orderedSum,
+}: GoodsBasketTypes) => {
   return (
     <div>
       <HeaderBasket clearBasket={clearBasket} />
-      <ContentBasket orderedPizzaz={orderedPizzaz} />
-      <PayBlockBasket basketSwitcher={basketSwitcher} />
+      <ContentBasket deletePizza={deletePizza} orderedPizzaz={orderedPizzaz} />
+      <PayBlockBasket orderedSum={orderedSum} goodsSum={goodsSum} basketSwitcher={basketSwitcher} />
     </div>
   );
 };

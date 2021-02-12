@@ -3,26 +3,23 @@ import BasketItem from "./BasketItem/BasketItem";
 
 import "./ContentBasket.scss";
 
-import { PizzaTypes } from "../../../../redux/basket-reducer";
-
-// export type PizzaTypes = {
-//   name: string;
-//   dough: string;
-//   length: number;
-//   counts: number;
-//   price: number;
-// }
+import { PizzaTypes, editBasketAction } from "../../../../redux/basket-reducer";
+import { connect } from "react-redux";
 
 interface ContentBasketTypes {
   orderedPizzaz: Array<PizzaTypes>;
+  deletePizza: Function;
+  editBasketAction: Function;
 }
 
-const ContentBasket = ({ orderedPizzaz }: ContentBasketTypes) => {
+const ContentBasket = ({ orderedPizzaz, deletePizza, editBasketAction }: ContentBasketTypes) => {
   return (
     <div className="basket-page__list">
       {orderedPizzaz.map((item, index) => {
         return (
           <BasketItem
+            editBasketAction={editBasketAction}
+            deletePizza={deletePizza}
             name={item.name}
             dough={item.dough}
             length={item.length}
@@ -36,4 +33,6 @@ const ContentBasket = ({ orderedPizzaz }: ContentBasketTypes) => {
   );
 };
 
-export default ContentBasket;
+const mapStateToProps = (state: Storage) => ({});
+
+export default connect(mapStateToProps, { editBasketAction })(ContentBasket);

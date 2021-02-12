@@ -5,10 +5,15 @@ import chesse from '../img/Goods/cheese.png';
 import { Dispatch } from 'react';
 
 const SORT_ACTION = "SORT_ACTION";
+const SORTED_BY_OTHER = "SORTED_BY_OTHER";
+const IS_SORT_OPEN = "IS_SORT_OPEN";
+const REVERSE_ACTION = "REVERSE_ACTION";
 
 interface HomeStateTypes {
+  isReverse: boolean;
   isSortOpen: boolean;
   sortedBy: string;
+  sortedByOther: string;
   pizzas: Array<
     {
       name: string;
@@ -22,12 +27,15 @@ interface HomeStateTypes {
 
 interface HomeActionTypes {
   type: string;
-  sortedBy?: string;
+  sortedBy: string;
+  sortedByOther: string;
 }
 
 let initialState: HomeStateTypes = {
+  isReverse: false,
   isSortOpen: false,
   sortedBy: '',
+  sortedByOther: 'popularity',
   pizzas: [
     {
       name: 'Cheese Burger-Pizza',
@@ -67,10 +75,32 @@ let initialState: HomeStateTypes = {
   ]
 };
 
-const HomeAction = (state: HomeStateTypes = { ...initialState }, action: HomeActionTypes) => {
-  switch (action.type) {
+
+
+const HomeAction = (state: HomeStateTypes = { ...initialState }, {
+  type, sortedBy, sortedByOther
+}: HomeActionTypes) => {
+  switch (type) {
+    case REVERSE_ACTION: {
+      return {
+        ...state,
+        isReverse: !state.isReverse
+      }
+    }
+    case IS_SORT_OPEN: {
+      return {
+        ...state,
+        isSortOpen: !state.isSortOpen
+      }
+    }
+    case SORTED_BY_OTHER: {
+      return {
+        ...state,
+        sortedByOther: sortedByOther
+      }
+    }
     case SORT_ACTION: {
-      return { ...state, sortedBy: action.sortedBy }
+      return { ...state, sortedBy: sortedBy }
     }
     default:
       return {
@@ -79,8 +109,33 @@ const HomeAction = (state: HomeStateTypes = { ...initialState }, action: HomeAct
   }
 };
 
+export const reverseSortAction = () => {
+  return async (dispatch: Dispatch<{ type: string }>) => {
+    dispatch({
+      type: REVERSE_ACTION,
+    });
+  };
+}
+
+export const sortOpenAction = () => {
+  return async (dispatch: Dispatch<{ type: string }>) => {
+    dispatch({
+      type: IS_SORT_OPEN,
+    });
+  };
+}
+
+export const sortedByOtherAction = (sortedByOther: string) => {
+  return async (dispatch: Dispatch<{ type: string, sortedByOther: string }>) => {
+    dispatch({
+      type: SORTED_BY_OTHER,
+      sortedByOther
+    });
+  };
+}
+
 export const sortAction = (sortedBy: string) => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<{ type: string, sortedBy: string }>) => {
     dispatch({
       type: SORT_ACTION,
       sortedBy: sortedBy

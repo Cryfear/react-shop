@@ -1,10 +1,11 @@
 import { Dispatch } from "react";
 
 const ADD_PIZZA = "ADD_PIZZA";
-const ADD_COUNT_PIZZA = "ADD_COUNT_PIZZA";
-const REFRESH_BASKET_SUM = "REFRESH_BASKET_SUM";
 const BASKET_SWITCHER = 'BASKET_SWITCHER';
 const CLEAR_BASKET = "CLEAR_BASKET";
+const DELETE_PIZZA = "DELETE_PIZZA";
+const EDIT_BASKET = "EDIT_BASKET";
+const EDIT_COUNT_PIZZA = "EDIT_COUNT_PIZZA";
 
 export type PizzaTypes = {
   name: string;
@@ -24,20 +25,53 @@ interface BasketStateTypes {
 
 interface BasketActionTypes {
   type: string;
-  pizza?: PizzaTypes;
-  name?: string;
-  sum?: number | undefined;
+  pizza: PizzaTypes;
+  name: string;
+  price: number;
+  plus: boolean;
+  counts: number | boolean | any;
+  secondary: boolean;
 }
 
 let initialState: BasketStateTypes = {
   isOpenBasket: false,
-  orderedSum: 0,
-  goodsSum: 0,
+  orderedSum: 0, // количество товаров
+  goodsSum: 0, // сумма денег за весь товар
   orderedPizzaz: []
 };
 
-const BasketAction = (state: BasketStateTypes = { ...initialState }, action: BasketActionTypes) => {
-  switch (action.type) {
+const BasketAction = (state: BasketStateTypes = { ...initialState }, {
+  type, // тип экшена
+  price, // цена
+  counts, // количество
+  name, // имя
+  pizza, // итем
+  plus, // нужно ли плюсовать, булево значение, если false то минусует.
+  secondary // вторичный вызов чтобы не было двойного прибавления товара
+}: BasketActionTypes) => {
+  switch (type) {
+    case EDIT_BASKET: {
+      if (counts !== false) {
+        return {
+          ...state,
+          orderedPizzaz: [...state.orderedPizzaz],
+          goodsSum: state.goodsSum + price,
+          orderedSum: state.orderedSum + counts
+        }
+      }
+      return {
+        ...state
+      }
+    }
+    case DELETE_PIZZA: {
+      return {
+        ...state,
+        orderedSum: state.orderedSum - counts,
+        goodsSum: state.goodsSum - (price * counts),
+        orderedPizzaz: state.orderedPizzaz.filter(pizza => pizza.name !== name)
+      };
+
+    }
     case CLEAR_BASKET: {
       return {
         ...state,
@@ -56,75 +90,79 @@ const BasketAction = (state: BasketStateTypes = { ...initialState }, action: Bas
       return {
         ...state,
         orderedSum: state.orderedSum + 1,
-        orderedPizzaz: [...state.orderedPizzaz, action.pizza]
+        orderedPizzaz: [...state.orderedPizzaz, pizza]
       };
     }
-    case REFRESH_BASKET_SUM: {
-      if (action.sum) {
-        return {
-          ...state,
-          goodsSum: state.goodsSum + action.sum
-        }
-      }
-
-      return { state };
-    }
-    case ADD_COUNT_PIZZA: {
-      state.orderedPizzaz.forEach((pizza: PizzaTypes, index: number) => {
-        if (pizza['name'] === action.name) {
-          state.orderedPizzaz[index].counts += 1;
-        }
-      })
+    case EDIT_COUNT_PIZZA: {
+      console.log(plus, name);
       return {
         ...state,
-        orderedSum: state.orderedSum + 1,
+        orderedSum: secondary ? state.orderedSum : state.orderedSum + 1,
+        orderedPizzaz: state.orderedPizzaz.map(pizza => {
+          if (pizza.name === name) plus ? pizza.counts += 1 : pizza.counts -= 1;
+
+          return pizza;
+        })
       };
     }
     default:
-      return {
-        ...state
-      };
+      return { ...state };
   }
 };
 
+export const editBasketAction = (counts: number, price: number, name?: string, plus?: boolean | any) => {
+  return (dispatch: Dispatch<any>) => {
+    dispatch({
+      type: EDIT_BASKET,
+      counts,
+      price
+    });
+    if (name) {
+      dispatch(editCountPizzaAction(name, plus, true));
+    }
+  }
+}
+
+export const deletePizza = (name: string, price: number, counts: number) => {
+  return (dispatch: Dispatch<any>) => {
+    dispatch({
+      type: DELETE_PIZZA,
+      name,
+      price,
+      counts
+    })
+  }
+}
+
 export const clearBasket = () => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<{ type: string }>) => {
     dispatch({ type: CLEAR_BASKET });
   }
 }
 
 export const basketSwitcher = () => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<{ type: string }>) => {
     dispatch({ type: BASKET_SWITCHER });
   }
 }
 
-export const addPizzaAction = (pizzas: PizzaTypes) => {
+export const addPizzaAction = (pizza: PizzaTypes) => {
   return async (dispatch: Dispatch<any>) => {
-    if (pizzas.counts > 1) {
-      dispatch(addCountPizzaAction(pizzas.name));
+    if (pizza.counts > 1) {
+      dispatch(editCountPizzaAction(pizza.name, true));
     }
     else {
-      dispatch(addPizza(pizzas));
+      dispatch(addPizza(pizza));
     }
-    dispatch(refreshBasketSum(pizzas.price));
+    dispatch(editBasketAction(0, pizza.price))
   };
 };
 
-export const refreshBasketSum = (sum: number) => ({
-  type: REFRESH_BASKET_SUM,
-  sum
-})
-
-export const addCountPizzaAction = (name: string) => {
-  return async (dispatch: Dispatch<BasketActionTypes>) => {
-    dispatch(addCountPizza(name));
-  };
-}
-
-export const addCountPizza = (name: string) => ({
-  type: ADD_COUNT_PIZZA,
-  name
+export const editCountPizzaAction = (name: string, plus: boolean, secondary?: boolean) => ({
+  type: EDIT_COUNT_PIZZA,
+  name,
+  plus,
+  secondary
 })
 
 export const addPizza = (pizza: PizzaTypes) => ({
